@@ -34,6 +34,14 @@ RUN mkdir -p /root/.local/bin && \
 RUN stack setup
 RUN stack install hlint packdeps cabal-install
 
+# Install common dependencies for LTS Haskell 8.6
+RUN stack install attoparsec-0.13.1.0 \
+    base-4.9.1.0 bytestring-0.10.8.1 cassava-0.4.5.1 conduit-1.2.9 \
+    conduit-extra-1.1.15 containers-0.5.7.1 csv-conduit-0.6.7 \
+    data-default-0.7.1.1 directory-1.3.0.0 exceptions-0.8.3 \
+    optparse-generic-1.1.4 monad-logger-0.3.21 resourcet-1.1.9 text-1.2.2.1 \
+    time-1.6.0.1 vector-0.11.0.0 postgresql-simple-0.5.2.1 primitive-0.6.1.0
+
 # Install Ruby
 RUN echo "deb http://ftp.debian.org/debian wheezy main" >> /etc/apt/sources.list
 RUN apt-get update
