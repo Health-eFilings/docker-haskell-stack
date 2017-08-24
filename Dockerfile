@@ -59,3 +59,10 @@ RUN npm -g install phantomjs@$PHANTOMJS_VERSION
 
 # Install PG Client
 RUN apt-get -y install postgresql-client-$PG_CLIENT_VERSION
+
+# This is a hack to update hosts file
+RUN mkdir -p /override_lib && cp /etc/hosts /var/ && cp /lib/x86_64-linux-gnu/libnss_files.so.2 /override_lib
+RUN sed -ie 's:/etc/hosts:/var/hosts:g' /override_lib/libnss_files.so.2
+ENV LD_LIBRARY_PATH /override_lib
+RUN rm /var/hosts
+RUN echo "127.0.0.1    localhost" >> /var/hosts
