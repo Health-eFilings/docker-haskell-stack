@@ -8,5 +8,5 @@ Docker file based in `buildpack-deps:trusty`, it includes:
 
 Use:
 ```sh
-docker pull healthefilings/docker-haskell-stack
+docker pull healthefilings/docker-haskell-stack:production
 ```
