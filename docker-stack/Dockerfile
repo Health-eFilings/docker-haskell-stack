@@ -7,14 +7,18 @@ ENV STACK_DOWNLOAD_URL https://github.com/commercialhaskell/stack/releases/downl
 RUN mkdir -p /root/.local/bin && \
     curl -L $STACK_DOWNLOAD_URL | tar zx -C /root/.local/bin/ --wildcards '*/stack' --strip=1  && \
     chmod +x /root/.local/bin/stack
-RUN stack setup
+
+RUN stack setup --resolver lts-8.6
 RUN stack install hlint
-RUN stack install packdeps cabal-install
+RUN stack install packdeps
 RUN stack install cabal-install
 
-RUN stack install optparse-applicative-0.13.2.0 attoparsec-0.13.2.0 \
-    base-4.9.1.0 bytestring-0.10.8.1 cassava-0.4.5.1 conduit-1.2.9 \
-    conduit-extra-1.1.15 containers-0.5.7.1 csv-conduit-0.6.7 \
-    data-default-0.7.1.1 directory-1.3.0.0 exceptions-0.8.3 \
-    optparse-generic-1.1.4 monad-logger-0.3.21 resourcet-1.1.9 text-1.2.2.1 \
-    time-1.6.0.1 vector-0.12.0.1 postgresql-simple-0.5.2.1 primitive-0.6.2.0
+RUN stack --resolver lts-8.6 build optparse-applicative \
+    attoparsec base bytestring cassava \
+    conduit conduit-extra containers csv-conduit \
+    data-default directory exceptions \
+    optparse-generic monad-logger resourcet text \
+    time vector postgresql-simple primitive \
+    xml scientific aeson raw-strings-qq split process process-extras
+
+RUN apt-get -y --force-yes install nano
