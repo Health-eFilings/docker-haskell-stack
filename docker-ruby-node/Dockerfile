@@ -21,6 +21,7 @@ ENV S3_BUCKET musicglue-buildpacks
 ENV PG_LOCATION /vendor/postgresql
 ENV PACKAGE https://$S3_BUCKET.s3.amazonaws.com/postgres/cedar-14/$POSTGRESQL_VERSION.tgz
 ENV PATH $PATH:$PG_LOCATION/bin
+ENV DOCKERIZE_VERSION v0.3.0
 
 RUN mkdir -p $PG_LOCATION
 RUN curl $PACKAGE -s -o - | tar xzf - -C $PG_LOCATION
@@ -43,6 +44,10 @@ RUN cd ruby-$RUBY_VERSION/ && ./configure && make && sudo make install
 RUN gem install bundler
 RUN npm -g install bower
 RUN npm -g install phantomjs@$PHANTOMJS_VERSION
+
+# Install Dockerize, this is a useful tool in circle ci in order to verify
+# that all services are running
+RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
 # This is a hack to update hosts file
 RUN mkdir -p /override_lib && cp /etc/hosts /var/ && cp /lib/x86_64-linux-gnu/libnss_files.so.2 /override_lib
