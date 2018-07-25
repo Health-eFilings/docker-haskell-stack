@@ -1,4 +1,4 @@
-FROM healthefilings/docker-ruby-node:latest
+FROM healthefilings/docker-ruby-node:2.3.7
 MAINTAINER Oscar Rocha <orocha@healthefilings.com>
 
 ENV STACK_VERSION 1.6.1
