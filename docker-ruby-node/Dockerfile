@@ -27,8 +27,8 @@ RUN mkdir -p $PG_LOCATION
 RUN curl $PACKAGE -s -o - | tar xzf - -C $PG_LOCATION
 
 # Install Ruby
-ENV RUBY_BASE_VERSION 2.3
-ENV RUBY_VERSION 2.3.7
+ENV RUBY_BASE_VERSION 2.4
+ENV RUBY_VERSION 2.4.4
 ENV PHANTOMJS_VERSION 1.9.8
 
 RUN echo "deb http://ftp.debian.org/debian wheezy main" >> /etc/apt/sources.list
