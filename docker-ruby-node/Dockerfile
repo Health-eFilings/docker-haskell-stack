@@ -28,11 +28,8 @@ RUN curl $PACKAGE -s -o - | tar xzf - -C $PG_LOCATION
 
 # Install Ruby
 ENV RUBY_BASE_VERSION 2.4
-ENV RUBY_VERSION 2.4.4
+ENV RUBY_VERSION 2.4.10
 ENV PHANTOMJS_VERSION 1.9.8
-
-RUN echo "deb http://ftp.debian.org/debian wheezy main" >> /etc/apt/sources.list
-RUN apt-get update
 
 RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 RUN apt-get install -y nodejs
